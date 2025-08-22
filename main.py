@@ -91,7 +91,14 @@ def get_note_info_with_url(req: NodeInfoUrlRequest):
 @app.post('/api/v1/get_note_info_with_id')
 def get_note_info(req: NodeInfoIdRequest):
     note_url = f"https://www.xiaohongshu.com/explore/{req.node_id}?xsec_token={req.xsec_token}"
-    return get_note_info_with_url(note_url, req.cookies_str)
+    success, msg, note_info = xhs_apis.get_note_info(note_url, req.cookies_str)
+    note_info = note_info['data']['items'][0]
+    note_info['url'] = note_url
+    return {
+        'success': success,
+        'msg': msg,
+        'data': handle_note_info(note_info)
+    }
 
 
 @app.post('/api/v1/search_note')
