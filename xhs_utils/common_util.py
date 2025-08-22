@@ -2,10 +2,12 @@ import os
 from loguru import logger
 from dotenv import load_dotenv
 
+
 def load_env():
     load_dotenv()
     cookies_str = os.getenv('COOKIES')
     return cookies_str
+
 
 def init():
     media_base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../datas/media_datas'))
