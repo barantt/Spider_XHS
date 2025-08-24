@@ -137,8 +137,6 @@ def handle_note_info(data):
 
 
 def handle_comment_info(data):
-    note_id = data['note_id']
-    note_url = data['note_url']
     comment_id = data['id']
     user_id = data['user_info']['user_id']
     home_url = f'https://www.xiaohongshu.com/user/profile/{user_id}'
@@ -165,8 +163,6 @@ def handle_comment_info(data):
     except:
         pass
     return {
-        'note_id': note_id,
-        'note_url': note_url,
         'comment_id': comment_id,
         'user_id': user_id,
         'home_url': home_url,
