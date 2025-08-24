@@ -117,7 +117,7 @@ def search_some_note(req: SearchRequest):
     for note in notes:
         tmp_note = {}
         tmp_note['note_id'] = note['id']
-        tmp_note['title'] = note['note_card']['display_title']
+        tmp_note['title'] = note['note_card'].get('display_title', "")
         tmp_note['type'] = note['note_card']['type']
         tmp_note['xsec_token'] = note['xsec_token']
         tmp_note['url'] = f"https://www.xiaohongshu.com/explore/{note['id']}?xsec_token={note['xsec_token']}"
@@ -143,8 +143,8 @@ def get_note_comments(req: NoteCommentsRequest):
             }
         }
     comments = res_json["data"]["comments"]
-    has_more = res_json.get("has_more", False)
-    cursor = res_json.get("cursor", "")
+    has_more = res_json["data"].get("has_more", False)
+    cursor = res_json["data"].get("cursor", "")
     return {
         'success': success,
         'msg': msg,
