@@ -56,6 +56,7 @@ def get_user_all_notes(req: AllUserNoteRequest):
     notes = res_json.get("notes", [])
     has_more = res_json.get("has_more", False)
     cursor = res_json.get("cursor", "")
+    nickname = ""
     new_result = []
     for note in notes:
         tmp_note = {}
@@ -65,12 +66,16 @@ def get_user_all_notes(req: AllUserNoteRequest):
         tmp_note['url'] = f"https://www.xiaohongshu.com/explore/{note['note_id']}?xsec_token={note['xsec_token']}"
         tmp_note['xsec_token'] = note['xsec_token']
         new_result.append(tmp_note)
+    if notes:
+        user_info = notes[0].get("user")
+        nickname = user_info.get("nick_name", "")
     return {
         'success': success,
         'msg': msg,
         'data': {
             'has_more': has_more,
             'cursor': cursor,
+            'nickname': nickname,
             'notes': new_result
         }
     }
